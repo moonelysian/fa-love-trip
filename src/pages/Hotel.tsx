@@ -6,6 +6,7 @@ import Carousel from '@components/hotel/Carousel'
 import Contents from '@components/hotel/Contents'
 import Rooms from '@components/hotel/Rooms'
 import RecommendHotels from '@components/hotel/RecommendHotels'
+import ActionButtons from '@/components/hotel/ActionButtons'
 
 const HotelPage = () => {
   const { id } = useParams() as { id: string }
@@ -22,6 +23,7 @@ const HotelPage = () => {
     <div>
       <Top title={name} subTitle={comment} />
       <Carousel images={images} />
+      <ActionButtons hotel={data} />
       <Rooms hotelId={id} />
       <Contents contents={contents} />
       <RecommendHotels recommendHotels={recommendHotels} />
