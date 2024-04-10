@@ -7,6 +7,8 @@ import { Global } from '@emotion/react'
 import globalStyles from '@styles/globalStyles'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
+import 'swiper/css'
+
 const client = new QueryClient({ defaultOptions: { queries: { retry: 0 } } })
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
