@@ -6,14 +6,21 @@ import Flex from '@shared/Flex'
 import Spacing from '@shared/Spacing'
 import Text from '@shared/Text'
 import { Hotel } from '@models/hotel'
+import useLike from '@hooks/useLike'
+import { IMAGE_URL } from '@constants'
 
 export default function ActionButtons({ hotel }: { hotel: Hotel }) {
   const share = useKakaoShare()
-
-  const { name, comment, mainImageUrl } = hotel
+  const { id, name, comment, mainImageUrl } = hotel
+  const { isLiked, toggleLike } = useLike(id)
 
   return (
     <Flex css={containerStyles}>
+      <Button
+        label="찜하기"
+        onClick={toggleLike}
+        iconUrl={isLiked ? IMAGE_URL.LIKED : IMAGE_URL.UNLIKED}
+      />
       <Button
         label="공유하기"
         onClick={() => {

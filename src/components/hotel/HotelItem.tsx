@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, MouseEvent } from 'react'
 import { css } from '@emotion/react'
 import { differenceInMilliseconds, parseISO } from 'date-fns'
+import { Link } from 'react-router-dom'
 
 import { Hotel } from '@models/hotel'
 import ListRow from '@shared/ListRow'
@@ -9,11 +10,13 @@ import Text from '@shared/Text'
 import Spacing from '@shared/Spacing'
 import Tag from '@shared/Tag'
 import addDelimiter from '@utils/addDelimiter'
-import formatTime from '@/utils/formatTime'
-import { Link } from 'react-router-dom'
+import formatTime from '@utils/formatTime'
+import useLike from '@hooks/useLike'
+import { IMAGE_URL } from '@constants'
 
 export default function HotelItem({ hotel }: { hotel: Hotel }) {
   const [remainedTime, setRemainedTime] = useState(0)
+  const { isLiked, toggleLike } = useLike(hotel.id)
 
   useEffect(() => {
     if (hotel.events == null || hotel.events.promoEndTime == null) {
@@ -41,6 +44,11 @@ export default function HotelItem({ hotel }: { hotel: Hotel }) {
     }
   }, [hotel.events])
 
+  const handleLike = (e: MouseEvent<HTMLImageElement>) => {
+    e.preventDefault()
+    toggleLike()
+  }
+
   const tagComponent = () => {
     if (hotel.events == null) {
       return null
@@ -63,6 +71,7 @@ export default function HotelItem({ hotel }: { hotel: Hotel }) {
       </div>
     )
   }
+
   return (
     <div>
       <Link to={`/hotel/${hotel.id}`}>
@@ -78,7 +87,17 @@ export default function HotelItem({ hotel }: { hotel: Hotel }) {
             </Flex>
           }
           right={
-            <Flex direction="column" align="flex-end">
+            <Flex
+              direction="column"
+              align="flex-end"
+              style={{ position: 'relative' }}
+            >
+              <img
+                src={isLiked ? IMAGE_URL.LIKED : IMAGE_URL.UNLIKED}
+                alt=""
+                css={iconHeartStyles}
+                onClick={handleLike}
+              />
               <img src={hotel.mainImageUrl} alt="" css={imageStyles} />
               <Spacing size={8} />
               <Text bold={true}>{addDelimiter(hotel.price)}원</Text>
@@ -101,4 +120,12 @@ const imageStyles = css`
   border-radius: 8px;
   object-fit: cover;
   margin-left: 16px;
+`
+
+const iconHeartStyles = css`
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 30px;
+  height: 30px;
 `
