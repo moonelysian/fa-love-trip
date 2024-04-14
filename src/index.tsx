@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals'
 import { Global } from '@emotion/react'
 import globalStyles from '@styles/globalStyles'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import { AlertContextProvider } from '@contexts/AlertContext'
 
 import 'swiper/css'
 
@@ -16,7 +17,9 @@ root.render(
   <React.StrictMode>
     <Global styles={globalStyles} />
     <QueryClientProvider client={client}>
-      <App />
+      <AlertContextProvider>
+        <App />
+      </AlertContextProvider>
     </QueryClientProvider>
   </React.StrictMode>,
 )
