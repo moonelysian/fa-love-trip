@@ -7,6 +7,7 @@ import Contents from '@components/hotel/Contents'
 import Rooms from '@components/hotel/Rooms'
 import RecommendHotels from '@components/hotel/RecommendHotels'
 import ActionButtons from '@/components/hotel/ActionButtons'
+import Reviews from '@/components/hotel/Reviews'
 
 const HotelPage = () => {
   const { id } = useParams() as { id: string }
@@ -27,6 +28,7 @@ const HotelPage = () => {
       <Rooms hotelId={id} />
       <Contents contents={contents} />
       <RecommendHotels recommendHotels={recommendHotels} />
+      <Reviews hotelId={id} />
     </div>
   )
 }
