@@ -68,3 +68,20 @@ export async function getRecommendHotels(hotelIds: string[]) {
       }) as Hotel,
   )
 }
+
+export async function getLikeHotels(hotelIds: string[]) {
+  const likeQuery = query(
+    collection(store, COLLECTIONS.HOTEL),
+    where(documentId(), 'in', hotelIds),
+  )
+
+  const snapshot = await getDocs(likeQuery)
+
+  return snapshot.docs.map(
+    (doc) =>
+      ({
+        id: doc.id,
+        ...doc.data(),
+      }) as Hotel,
+  )
+}

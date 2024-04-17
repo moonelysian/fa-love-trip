@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import TestPage from '@pages/Test'
 import HotelListPage from '@pages/HotelList'
 import HotelPage from '@pages/Hotel'
+import LikeListPage from '@pages/LikeList'
 import useLoadKakao from './hooks/useLoadKakao'
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HotelListPage />} />
         <Route path="/hotel/:id" element={<HotelPage />} />
+        <Route path="/likes" element={<LikeListPage />} />
         <Route path="/test" element={<TestPage />} />
       </Routes>
     </BrowserRouter>
